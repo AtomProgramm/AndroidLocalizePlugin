@@ -60,10 +60,10 @@ public class SupportLanguagesDialog extends DialogWrapper {
     return "#com.airsaid.localization.ui.SupportLanguagesDialog#".concat(key);
   }
 
-  @Override
-  protected Action @NotNull [] createActions() {
-    return new Action[]{};
-  }
+//  @Override
+//  protected Action @NotNull [] createActions() {
+//    return new Action[]{};
+//  }
 
   static class EnglishNameComparator implements Comparator<Lang> {
     @Override
