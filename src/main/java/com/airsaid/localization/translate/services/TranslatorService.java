@@ -21,6 +21,7 @@ import com.airsaid.localization.translate.AbstractTranslator;
 import com.airsaid.localization.translate.impl.baidu.BaiduTranslator;
 import com.airsaid.localization.translate.impl.google.GoogleTranslator;
 import com.airsaid.localization.translate.impl.microsoft.MicrosoftTranslator;
+import com.airsaid.localization.translate.impl.yandex.YandexTranslator;
 import com.airsaid.localization.translate.impl.youdao.YoudaoTranslator;
 import com.airsaid.localization.translate.lang.Lang;
 import com.intellij.openapi.application.ApplicationManager;
@@ -55,6 +56,9 @@ public final class TranslatorService {
     GoogleTranslator googleTranslator = new GoogleTranslator();
     translators.put(googleTranslator.getKey(), googleTranslator);
     defaultTranslator = googleTranslator;
+
+    YandexTranslator yandexTranslator = new YandexTranslator();
+    translators.put(yandexTranslator.getKey(), yandexTranslator);
 
     MicrosoftTranslator microsoftTranslator = new MicrosoftTranslator();
     translators.put(microsoftTranslator.getKey(), microsoftTranslator);

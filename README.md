@@ -1,13 +1,13 @@
-# ![image](https://raw.githubusercontent.com/Airsaid/AndroidLocalizePlugin/85cf5020832523ea333ad09286af55880460457a/src/main/resources/META-INF/pluginIcon.svg) AtomProgramm-forck AndroidLocalizePlugin 
-[![Plugin Version](https://img.shields.io/jetbrains/plugin/v/11174)](https://plugins.jetbrains.com/plugin/11174-androidlocalize)
-[![Plugin Rating](https://img.shields.io/jetbrains/plugin/r/rating/11174)](https://plugins.jetbrains.com/plugin/11174-androidlocalize)
+# ![image](https://raw.githubusercontent.com/Airsaid/AndroidLocalizePlugin/85cf5020832523ea333ad09286af55880460457a/src/main/resources/META-INF/pluginIcon.svg) [Atom](https://github.com/AtomProgramm) - fork of [AndroidLocalizePlugin](https://github.com/Airsaid/AndroidLocalizePlugin)
 
-:earth_asia: Android/IDEA localization plugin. supports multiple languages and multiple translators. ([中文文档](https://github.com/Airsaid/AndroidLocalizePlugin/blob/master/README_CN.md))
+### Description
+My improvements for 'AndroidLocalizationPlugin', fork from d81f1a3f7b3a69ed10aef5d5ba1bc18abc9dfc87
 
-# Features
-- now Yandex translate start impl
+## Now in planed planned:
+ - A simple translation via the web in Yandex translator. 
+ - Correction of escaping apostrophes and saving escaped characters after translation
 
-# Usage
+## Usage
 - Step 1: Select the values/strings.xml.
 - Step 2: Right click and select "Translate to Other Languages".
 - Step 3: Select the languages to be translated.
