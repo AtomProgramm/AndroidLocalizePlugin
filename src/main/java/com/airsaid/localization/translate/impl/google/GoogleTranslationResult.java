@@ -18,6 +18,7 @@
 package com.airsaid.localization.translate.impl.google;
 
 import com.airsaid.localization.translate.TranslationResult;
+import com.esotericsoftware.minlog.Log;
 import com.google.gson.annotations.SerializedName;
 import org.jetbrains.annotations.NotNull;
 
@@ -81,6 +82,7 @@ public class GoogleTranslationResult implements TranslationResult {
 
   @Override
   public @NotNull String getTranslationResult() {
+    Log.debug(">>GoogleTranslator getTranslationResult  ");
     List<Sentences> sentences = getSentences();
     if (sentences == null || sentences.isEmpty()) {
       return "";

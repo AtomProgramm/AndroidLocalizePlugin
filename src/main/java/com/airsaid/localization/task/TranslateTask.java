@@ -24,6 +24,7 @@ import com.airsaid.localization.translate.lang.Lang;
 import com.airsaid.localization.translate.lang.Languages;
 import com.airsaid.localization.translate.services.TranslatorService;
 import com.airsaid.localization.utils.TextUtil;
+import com.esotericsoftware.minlog.Log;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
@@ -67,7 +68,9 @@ public class TranslateTask extends Task.Backgroundable {
 
   public TranslateTask(@Nullable Project project, @Nls @NotNull String title, List<Lang> languages,
                        List<AndroidString> androidStrings, PsiFile stringsFile) {
+
     super(project, title);
+    Log.debug(">>TranslateTask TranslateTask  "+title);
     mToLanguages = languages;
     mAndroidStrings = androidStrings;
     mStringsFile = stringsFile.getVirtualFile();
@@ -86,6 +89,8 @@ public class TranslateTask extends Task.Backgroundable {
 
   @Override
   public void run(@NotNull ProgressIndicator progressIndicator) {
+    Log.debug(">>TranslateTask run  ");
+
     final boolean isOverwriteExistingString = PropertiesComponent.getInstance(myProject)
         .getBoolean(Constants.KEY_IS_OVERWRITE_EXISTING_STRING);
 
@@ -114,6 +119,8 @@ public class TranslateTask extends Task.Backgroundable {
 
   private List<AndroidString> doTranslate(@NotNull ProgressIndicator progressIndicator, @NotNull Lang toLanguage
       , @Nullable Map<String, AndroidString> toAndroidStrings, boolean isOverwrite) {
+    Log.debug(">>TranslateTask doTranslate  ");
+
     LOG.info("doTranslate toLanguage: " + toLanguage.getEnglishName() + ", toAndroidStrings: " + toAndroidStrings + ", isOverwrite: " + isOverwrite);
 
     final List<AndroidString> translatedStrings = new ArrayList<>();

@@ -23,6 +23,7 @@ import com.airsaid.localization.translate.lang.Languages;
 import com.airsaid.localization.translate.util.AgentUtil;
 import com.airsaid.localization.translate.util.GsonUtil;
 import com.airsaid.localization.translate.util.UrlBuilder;
+import com.esotericsoftware.minlog.Log;
 import com.intellij.openapi.util.Pair;
 import com.intellij.util.io.RequestBuilder;
 import icons.PluginIcons;
@@ -78,6 +79,7 @@ public class GoogleTranslator extends AbstractTranslator {
   @Override
   @NotNull
   public List<Lang> getSupportedLanguages() {
+    Log.debug(">>GoogleTranslator getSupportedLanguages  ");
     if (supportedLanguages == null) {
       List<Lang> languages = Languages.getLanguages();
       supportedLanguages = new ArrayList<>(104);
@@ -90,6 +92,7 @@ public class GoogleTranslator extends AbstractTranslator {
 
   @Override
   public @NotNull String getRequestUrl(@NotNull Lang fromLang, @NotNull Lang toLang, @NotNull String text) {
+    Log.debug(">>GoogleTranslator getRequestUrl  "+text);
     return new UrlBuilder(BASE_URL)
         .addQueryParameter("sl", fromLang.getCode()) // source language code (auto for auto detection)
         .addQueryParameter("tl", toLang.getCode()) // translation language
@@ -104,6 +107,7 @@ public class GoogleTranslator extends AbstractTranslator {
 
   @Override
   public @NotNull List<Pair<String, String>> getRequestParams(@NotNull Lang fromLang, @NotNull Lang toLang, @NotNull String text) {
+    Log.debug(">>GoogleTranslator getRequestUrl  "+text);
     List<Pair<String, String>> params = new ArrayList<>();
     params.add(Pair.create("q", text));
     return params;
@@ -117,6 +121,7 @@ public class GoogleTranslator extends AbstractTranslator {
 
   @Override
   public @NotNull String parsingResult(@NotNull Lang fromLang, @NotNull Lang toLang, @NotNull String text, @NotNull String resultText) {
+    Log.debug(">>GoogleTranslator parsingResult  "+text+" "+resultText);
     LOG.info("parsingResult: " + resultText);
     GoogleTranslationResult googleTranslationResult = GsonUtil.getInstance().getGson().fromJson(resultText, GoogleTranslationResult.class);
     return googleTranslationResult.getTranslationResult();

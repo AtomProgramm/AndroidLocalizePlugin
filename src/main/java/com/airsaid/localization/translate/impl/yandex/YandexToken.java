@@ -47,62 +47,22 @@ public class YandexToken {
 //    return getToken(text, getDefaultTKK());
 //  }
 //
-//  public static String getToken(String text, Pair<Long, Long> tkk) {
-//    int length = text.length();
-//    List<Long> a = new ArrayList<>();
-//    int b = 0;
-//    char[] ch = text.toCharArray();
-//    while (b < length) {
-//      int c = ch[b];
-//      if (128 > c) {
-//        a.add((long) c);
-//      } else {
-//        if (2048 > c) {
-//          a.add((long) (c >> 6 | 192));
-//        } else {
-//          if (55296 == (c & 64512) && b + 1 < length && 56320 == (ch[b + 1] & 64512)) {
-//            c = 65536 + ((c & 1023) << 10) + (ch[++b] & 1023);
-//            a.add((long) (c >> 18 | 240));
-//            a.add((long) (c >> 12 & 63 | 128));
-//          } else {
-//            a.add((long) (c >> 12 | 224));
-//          }
-//          a.add((long) (c >> 6 & 63 | 128));
-//        }
-//        a.add((long) (c & 63 | 128));
-//      }
-//      b++;
-//    }
-//
-//    long d = tkk.first;
-//    long e = tkk.second;
-//    long f = d;
-//    for (Long h : a) {
-//      f += h;
-//      f = fun(f, "+-a^+6");
-//    }
-//
-//    f = fun(f, "+-3^+b+-f");
-//    f = f ^ e;
-//    if (0 > f) {
-//      f = (f & Integer.MAX_VALUE) + Integer.MAX_VALUE + 1;
-//    }
-//    f = (long) (f % 1E6);
-//
-//    return f + "." + (f ^ d);
-//  }
-//
-//  private static Long fun(Long a, String b) {
-//    long g = a;
-//    char[] ch = b.toCharArray();
-//    for (int c = 0; c < ch.length - 1; c += 3) {
-//      char d = ch[c + 2];
-//      int e = 'a' <= d ? (d - 87) : d - '0';
-//      long f = '+' == ch[c + 1] ? g >>> e : g << e;
-//      g = '+' == ch[c] ? g + f & ((long) Integer.MAX_VALUE * 2 + 1) : g ^ f;
-//    }
-//    return g;
-//  }
+
+    public static String getToken(String text) {
+        return "";
+    }
+
+  private static Long fun(Long a, String b) {
+    long g = a;
+    char[] ch = b.toCharArray();
+    for (int c = 0; c < ch.length - 1; c += 3) {
+      char d = ch[c + 2];
+      int e = 'a' <= d ? (d - 87) : d - '0';
+      long f = '+' == ch[c + 1] ? g >>> e : g << e;
+      g = '+' == ch[c] ? g + f & ((long) Integer.MAX_VALUE * 2 + 1) : g ^ f;
+    }
+    return g;
+  }
 //
 //  private static Pair<Long, Long> getDefaultTKK() {
 //    long now = System.currentTimeMillis() / MIM;

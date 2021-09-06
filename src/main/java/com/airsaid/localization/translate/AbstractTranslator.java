@@ -19,6 +19,7 @@ package com.airsaid.localization.translate;
 
 import com.airsaid.localization.config.SettingsState;
 import com.airsaid.localization.translate.lang.Lang;
+import com.esotericsoftware.minlog.Log;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.Pair;
 import com.intellij.util.io.HttpRequests;

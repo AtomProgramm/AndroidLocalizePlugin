@@ -24,6 +24,7 @@ import com.airsaid.localization.translate.impl.microsoft.MicrosoftTranslator;
 import com.airsaid.localization.translate.impl.yandex.YandexTranslator;
 import com.airsaid.localization.translate.impl.youdao.YoudaoTranslator;
 import com.airsaid.localization.translate.lang.Lang;
+import com.esotericsoftware.minlog.Log;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.components.ServiceManager;
@@ -52,6 +53,7 @@ public final class TranslatorService {
 
   public TranslatorService() {
     translators = new LinkedHashMap<>();
+    Log.debug(">>TranslatorService TranslatorService");
 
     GoogleTranslator googleTranslator = new GoogleTranslator();
     translators.put(googleTranslator.getKey(), googleTranslator);
@@ -86,6 +88,7 @@ public final class TranslatorService {
   }
 
   public void setSelectedTranslator(@NotNull AbstractTranslator selectedTranslator) {
+    Log.debug(">>TranslatorService setSelectedTranslator "+selectedTranslator.toString());
     if (this.selectedTranslator != selectedTranslator) {
       LOG.info(String.format("setTranslator: %s", selectedTranslator));
       this.selectedTranslator = selectedTranslator;

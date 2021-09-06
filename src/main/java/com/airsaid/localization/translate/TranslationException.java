@@ -18,6 +18,7 @@
 package com.airsaid.localization.translate;
 
 import com.airsaid.localization.translate.lang.Lang;
+import com.esotericsoftware.minlog.Log;
 import org.jetbrains.annotations.NotNull;
 
 /**
