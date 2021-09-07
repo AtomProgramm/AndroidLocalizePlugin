@@ -33,21 +33,6 @@ import java.util.regex.Pattern;
  */
 public class YandexToken {
 
-//  private static final Logger LOG = Logger.getInstance(GoogleToken.class);
-//
-//  private static final int MIM = 60 * 60 * 1000;
-//  private static final Random GENERATOR = new Random();
-//  private static final Pattern TKK_PATTERN = Pattern.compile("tkk='(\\d+).(-?\\d+)'");
-//  private static final String ELEMENT_URL = "https://translate.google.cn/translate_a/element.js";
-//
-//  private static Pair<Long, Long> sInnerValue = Pair.create(0L, 0L);
-//  private static boolean sNeedUpdate = true;
-//
-//  public static String getToken(String text) {
-//    return getToken(text, getDefaultTKK());
-//  }
-//
-
     public static String getToken(String text) {
         return "";
     }
@@ -63,39 +48,5 @@ public class YandexToken {
     }
     return g;
   }
-//
-//  private static Pair<Long, Long> getDefaultTKK() {
-//    long now = System.currentTimeMillis() / MIM;
-//    long curVal = sInnerValue.first;
-//    if (!sNeedUpdate && now == curVal) {
-//      return sInnerValue;
-//    }
-//
-//    Pair<Long, Long> newTKK = getTKKFromGoogle();
-//    sNeedUpdate = newTKK == null;
-//    sInnerValue = newTKK != null ? newTKK : Pair.create(now, Math.abs((long) GENERATOR.nextInt()) + (long) GENERATOR.nextInt());
-//
-//    return sInnerValue;
-//  }
-//
-//  private static Pair<Long, Long> getTKKFromGoogle() {
-//    try {
-//      String elementJs = HttpRequests.request(ELEMENT_URL)
-//          .userAgent(AgentUtil.getUserAgent())
-//          .tuner(connection -> connection.setRequestProperty("Referer", GoogleTranslator.HOST_URL))
-//          .readString();
-//      Matcher matcher = TKK_PATTERN.matcher(elementJs);
-//      if (matcher.find()) {
-//        long value1 = Long.parseLong(matcher.group(1));
-//        long value2 = Long.parseLong(matcher.group(2));
-//        LOG.info(String.format("TKK: %d.%d", value1, value2));
-//        return Pair.create(value1, value1);
-//      }
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//      LOG.warn("TKK get failed.", e);
-//    }
-//    return null;
-//  }
 
 }

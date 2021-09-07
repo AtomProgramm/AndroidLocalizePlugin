@@ -45,12 +45,10 @@ public class GoogleToken {
   private static boolean sNeedUpdate = true;
 
   public static String getToken(String text) {
-    Log.debug(">>GoogleToken getToken  "+text);
     return getToken(text, getDefaultTKK());
   }
 
   public static String getToken(String text, Pair<Long, Long> tkk) {
-    Log.debug(">>GoogleToken getToken  "+text+" "+tkk.toString());
     int length = text.length();
     List<Long> a = new ArrayList<>();
     int b = 0;
@@ -96,7 +94,6 @@ public class GoogleToken {
   }
 
   private static Long fun(Long a, String b) {
-    Log.debug(">>GoogleToken fun  "+a.toString()+" "+b.toString());
     long g = a;
     char[] ch = b.toCharArray();
     for (int c = 0; c < ch.length - 1; c += 3) {
@@ -109,7 +106,6 @@ public class GoogleToken {
   }
 
   private static Pair<Long, Long> getDefaultTKK() {
-    Log.debug(">>oogleToken getDefaultTKK ");
     long now = System.currentTimeMillis() / MIM;
     long curVal = sInnerValue.first;
     if (!sNeedUpdate && now == curVal) {

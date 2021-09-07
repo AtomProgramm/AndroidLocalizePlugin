@@ -82,7 +82,6 @@ public class GoogleTranslationResult implements TranslationResult {
 
   @Override
   public @NotNull String getTranslationResult() {
-    Log.debug(">>GoogleTranslator getTranslationResult  ");
     List<Sentences> sentences = getSentences();
     if (sentences == null || sentences.isEmpty()) {
       return "";

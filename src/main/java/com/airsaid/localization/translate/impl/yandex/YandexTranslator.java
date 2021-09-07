@@ -18,35 +18,82 @@
 package com.airsaid.localization.translate.impl.yandex;
 
 import com.airsaid.localization.translate.AbstractTranslator;
+import com.airsaid.localization.translate.TranslationException;
 import com.airsaid.localization.translate.lang.Lang;
 import com.airsaid.localization.translate.lang.Languages;
 import com.airsaid.localization.translate.util.AgentUtil;
 import com.airsaid.localization.translate.util.GsonUtil;
 import com.airsaid.localization.translate.util.UrlBuilder;
+import com.airsaid.localization.utils.NotificationUtil;
+import com.android.tools.idea.io.netty.handler.codec.http.HttpRequest;
+import com.esotericsoftware.minlog.Log;
 import com.intellij.openapi.util.Pair;
+import com.intellij.util.io.HttpRequests;
 import com.intellij.util.io.RequestBuilder;
 import icons.PluginIcons;
 import org.jetbrains.annotations.NotNull;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.springframework.http.client.reactive.ClientHttpConnector;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.web.reactive.function.client.WebClient;
 
+import javax.print.DocFlavor;
 import javax.swing.*;
+import javax.xml.ws.WebServiceClient;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author airsaid
  */
 public class YandexTranslator extends AbstractTranslator {
   private static final String KEY = "Yandex";
-  private static final String HOST_URL_COM = "https://translate.yandex.com";//????
-  private static final String HOST_URL = "https://translate.yandex.com";//????
-  private static String BASE_URL = HOST_URL.concat("/translate_a/single");//????
+  private static final String HOST_URL = "https://translate.yandex.ru/";
 
   private List<Lang> supportedLanguages;
 
+
   @Override
-  public @NotNull String getKey() {
-    return KEY;
+  public String doTranslate(@NotNull Lang fromLang, @NotNull Lang toLang, @NotNull String text) throws TranslationException {
+    List<Lang> supportedLanguages = getSupportedLanguages();
+    if (!supportedLanguages.contains(toLang)) {
+      throw new TranslationException(fromLang, toLang, text, toLang.getEnglishName() + " is not supported.");
+    }
+    @NotNull RequestBuilder req = HttpRequests.request(HOST_URL+"?lang=en-"+toLang.getCode()+"&text="+text);
+    Connection c = Jsoup.connect(HOST_URL+"?lang=en-"+toLang.getCode()+"&text="+text);
+    c.timeout(10);
+    Document d = null;
+    try {
+      d = c.post();
+    } catch (IOException e) { e.printStackTrace();}
+    String r = d.body().getElementsByClass("translation-container").text();
+//    String r = d.text();
+
+
+    try {
+      return r;
+    } catch (Exception e) { return "-\\"; }
+
   }
+
+
+
+
+
+
+
+
 
   @NotNull
   @Override
@@ -70,7 +117,7 @@ public class YandexTranslator extends AbstractTranslator {
 
   @Override
   public @NotNull String getRequestUrl(@NotNull Lang fromLang, @NotNull Lang toLang, @NotNull String text) {
-    return new UrlBuilder(BASE_URL)
+    return new UrlBuilder(HOST_URL)
 //        .addQueryParameter("sl", fromLang.getCode()) // source language code (auto for auto detection)
 //        .addQueryParameter("tl", toLang.getCode()) // translation language
 //        .addQueryParameter("client", "gtx") // client of request (guess)
@@ -103,4 +150,6 @@ public class YandexTranslator extends AbstractTranslator {
   public boolean isNeedAppId() {return false;}
   @Override
   public boolean isNeedAppKey() {return false;}
+  @Override
+  public @NotNull String getKey() {return KEY;}
 }

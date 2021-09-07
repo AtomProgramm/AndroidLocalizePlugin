@@ -13,6 +13,15 @@ repositories {
 }
 
 dependencies {
+
+    compile group: 'org.springframework', name: 'spring-webflux', version: '5.2.7.RELEASE'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+    implementation platform('io.projectreactor:reactor-bom:Dysprosium-SR1')
+    implementation 'io.projectreactor:reactor-core'
     implementation 'com.google.code.gson:gson:2.8.7'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'

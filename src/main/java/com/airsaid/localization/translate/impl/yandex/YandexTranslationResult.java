@@ -18,6 +18,8 @@
 package com.airsaid.localization.translate.impl.yandex;
 
 import com.airsaid.localization.translate.TranslationResult;
+import com.airsaid.localization.translate.impl.google.GoogleTranslationResult;
+import com.esotericsoftware.minlog.Log;
 import com.google.gson.annotations.SerializedName;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,138 +30,116 @@ import java.util.Objects;
  * @author airsaid
  */
 public class YandexTranslationResult implements TranslationResult {
-    @NotNull
-    @Override
-    public String getTranslationResult() {
-        return null;
+    @SerializedName("src")
+    private String sourceCode;
+
+    private List<GoogleTranslationResult.Sentences> sentences;
+
+    public YandexTranslationResult() {}
+
+    public YandexTranslationResult(String sourceCode, List<GoogleTranslationResult.Sentences> sentences) {
+        this.sourceCode = sourceCode;
+        this.sentences = sentences;
     }
-//  @SerializedName("src")
-//  private String sourceCode;
-//
-//  private List<Sentences> sentences;
-//
-//  public GoogleTranslationResult() {
-//
-//  }
-//
-//  public GoogleTranslationResult(String sourceCode, List<Sentences> sentences) {
-//    this.sourceCode = sourceCode;
-//    this.sentences = sentences;
-//  }
-//
-//  public String getSourceCode() {
-//    return sourceCode;
-//  }
-//
-//  public void setSourceCode(String sourceCode) {
-//    this.sourceCode = sourceCode;
-//  }
-//
-//  public List<Sentences> getSentences() {
-//    return sentences;
-//  }
-//
-//  public void setSentences(List<Sentences> sentences) {
-//    this.sentences = sentences;
-//  }
-//
-//  @Override
-//  public boolean equals(Object o) {
-//    if (this == o) return true;
-//    if (o == null || getClass() != o.getClass()) return false;
-//    GoogleTranslationResult that = (GoogleTranslationResult) o;
-//    return Objects.equals(sourceCode, that.sourceCode) && Objects.equals(sentences, that.sentences);
-//  }
-//
-//  @Override
-//  public int hashCode() {
-//    return Objects.hash(sourceCode, sentences);
-//  }
-//
-//  @Override
-//  public String toString() {
-//    return "GoogleTranslationResult{" +
-//        "sourceCode='" + sourceCode + '\'' +
-//        ", sentences=" + sentences +
-//        '}';
-//  }
-//
-//  @Override
-//  public @NotNull String getTranslationResult() {
-//    List<Sentences> sentences = getSentences();
-//    if (sentences == null || sentences.isEmpty()) {
-//      return "";
-//    }
-//    StringBuilder result = new StringBuilder();
-//    for (Sentences sentence : sentences) {
-//      String trans = sentence.getTrans();
-//      if (trans != null) result.append(trans);
-//    }
-//    return result.toString();
-//  }
-//
-//  public static class Sentences {
-//    private String trans;
-//
-//    @SerializedName("orig")
-//    private String origin;
-//
-//    private int backend;
-//
-//    public Sentences() {
-//
-//    }
-//
-//    public Sentences(String trans, String origin, int backend) {
-//      this.trans = trans;
-//      this.origin = origin;
-//      this.backend = backend;
-//    }
-//
-//    public String getTrans() {
-//      return trans;
-//    }
-//
-//    public void setTrans(String trans) {
-//      this.trans = trans;
-//    }
-//
-//    public String getOrigin() {
-//      return origin;
-//    }
-//
-//    public void setOrigin(String origin) {
-//      this.origin = origin;
-//    }
-//
-//    public int getBackend() {
-//      return backend;
-//    }
-//
-//    public void setBackend(int backend) {
-//      this.backend = backend;
-//    }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//      if (this == o) return true;
-//      if (o == null || getClass() != o.getClass()) return false;
-//      Sentences sentences = (Sentences) o;
-//      return backend == sentences.backend && Objects.equals(trans, sentences.trans) && Objects.equals(origin, sentences.origin);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//      return Objects.hash(trans, origin, backend);
-//    }
-//
-//    @Override
-//    public String toString() {
-//      return "Sentences{" +
-//          "trans='" + trans + '\'' +
-//          ", origin='" + origin + '\'' +
-//          ", backend=" + backend +
-//          '}';
-//    }
-//  }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        YandexTranslationResult that = (YandexTranslationResult) o;
+        return Objects.equals(sourceCode, that.sourceCode) && Objects.equals(sentences, that.sentences);
+    }
+
+    @Override
+    public int hashCode() {  return Objects.hash(sourceCode, sentences);  }
+
+    @Override
+    public String toString() {
+        return "YandexTranslationResult{" +
+                "sourceCode='" + sourceCode + '\'' +
+                ", sentences=" + sentences +
+                '}';
+    }
+
+    @Override
+    public @NotNull String getTranslationResult() {
+        List<GoogleTranslationResult.Sentences> sentences = getSentences();
+        if (sentences == null || sentences.isEmpty()) {
+            return "";
+        }
+        StringBuilder result = new StringBuilder();
+        for (GoogleTranslationResult.Sentences sentence : sentences) {
+            String trans = sentence.getTrans();
+            if (trans != null) result.append(trans);
+        }
+        return result.toString();
+    }
+
+    public String getSourceCode() {return sourceCode;}
+    public void setSourceCode(String sourceCode) { this.sourceCode = sourceCode;}
+    public List<GoogleTranslationResult.Sentences> getSentences() {return sentences;}
+    public void setSentences(List<GoogleTranslationResult.Sentences> sentences) {this.sentences = sentences;  }
+
+    public static class Sentences {
+        private String trans;
+
+        @SerializedName("orig")
+        private String origin;
+
+        private int backend;
+
+        public Sentences() {
+
+        }
+
+        public Sentences(String trans, String origin, int backend) {
+            this.trans = trans;
+            this.origin = origin;
+            this.backend = backend;
+        }
+
+        public String getTrans() {
+            return trans;
+        }
+
+        public void setTrans(String trans) {
+            this.trans = trans;
+        }
+
+        public String getOrigin() {
+            return origin;
+        }
+
+        public void setOrigin(String origin) {
+            this.origin = origin;
+        }
+
+        public int getBackend() {
+            return backend;
+        }
+
+        public void setBackend(int backend) {
+            this.backend = backend;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            YandexTranslationResult.Sentences sentences = (YandexTranslationResult.Sentences) o;
+            return backend == sentences.backend && Objects.equals(trans, sentences.trans) && Objects.equals(origin, sentences.origin);
+        }
+
+        @Override
+        public int hashCode() { return Objects.hash(trans, origin, backend); }
+
+        @Override
+        public String toString() {
+            return "Sentences{" +
+                    "trans='" + trans + '\'' +
+                    ", origin='" + origin + '\'' +
+                    ", backend=" + backend +
+                    '}';
+        }
+    }
 }
