@@ -30,6 +30,7 @@ import com.esotericsoftware.minlog.Log;
 import com.intellij.openapi.util.Pair;
 import com.intellij.util.io.HttpRequests;
 import com.intellij.util.io.RequestBuilder;
+import com.thoughtworks.selenium.Selenium;
 import icons.PluginIcons;
 import org.jetbrains.annotations.NotNull;
 import org.jsoup.Connection;
@@ -37,6 +38,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.http.client.reactive.ClientHttpConnector;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -53,13 +58,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 /**
  * @author airsaid
  */
 public class YandexTranslator extends AbstractTranslator {
   private static final String KEY = "Yandex";
   private static final String HOST_URL = "https://translate.yandex.ru/";
+  public WebDriver driverToYt = null;
 
   private List<Lang> supportedLanguages;
 
@@ -70,19 +75,14 @@ public class YandexTranslator extends AbstractTranslator {
     if (!supportedLanguages.contains(toLang)) {
       throw new TranslationException(fromLang, toLang, text, toLang.getEnglishName() + " is not supported.");
     }
-    @NotNull RequestBuilder req = HttpRequests.request(HOST_URL+"?lang=en-"+toLang.getCode()+"&text="+text);
-    Connection c = Jsoup.connect(HOST_URL+"?lang=en-"+toLang.getCode()+"&text="+text);
-    c.timeout(10);
-    Document d = null;
+    System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe");
+    if (driverToYt == null){
+      driverToYt = new ChromeDriver();
+    }
+    driverToYt.get("http://someUrl");
+//    driver.quit();
     try {
-      d = c.post();
-    } catch (IOException e) { e.printStackTrace();}
-    String r = d.body().getElementsByClass("translation-container").text();
-//    String r = d.text();
-
-
-    try {
-      return r;
+      return "-----" + driverToYt.getTitle();
     } catch (Exception e) { return "-\\"; }
 
   }
